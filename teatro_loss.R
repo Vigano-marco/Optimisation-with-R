@@ -266,6 +266,32 @@ genetic_algorithm <- function(){
 
 genetic_algorithm()
 
+## bat
+
+microbat <- function (){
+  #estremi del range del primo parametro
+  range1x<-0
+  range2x<-20
+  #estremi del range del secondo parametro
+  range1y<-0
+  range2y<-10
+  #applico bat algorithm: cerca il minimo della funzione
+  f2<- function(x1,x2) loss_function(x1,x2)
+  bat <- bat_optim(D = 2,NP = 40,N_Gen = 1000,alpha = 0.4,gam=0.8, ro = 0.01, 
+                 Qmin = 0, Qmax = 2, Lower = c(range1x, range1y),
+                 Upper = c(range2x,range2y), FUN =f2)
+  results_loss <<- mutate(results_loss, bats = bat$min_fitness)
+  results_positions <<- rbind(results_positions, c("bats", unlist(bat$best_solution)))
+  # soluzione 
+  # bat$best_solution
+  # fitness media nell'ultima iterazione
+  # mean(bat$fitness)
+  # best fitness
+  # bat$min_fitness
+  print(bat)
+  }
+
+microbat()
 
 ## show results
 
